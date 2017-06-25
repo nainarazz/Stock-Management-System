@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i> Category
+    </div>
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" id="dt" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+
+    {
+
+    <script type="text/javascript" src="~/Scripts/Product/LoadCategoryDataTable.js"></script>
+    <script type="text/javascript" src="~/Scripts/Product/modalform.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    }   
+
+
+
+
+
+
+

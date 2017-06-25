@@ -1,0 +1,84 @@
+﻿@model StockSystem.ViewModels.AddProductViewModel
+
+<div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">Add New Product</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+
+        @Html.ValidationSummary(true, "Please fix the errors below.")
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.ReferenceId)
+                @Html.TextBoxFor(m => m.ReferenceId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ReferenceId)
+                
+            </div>
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.ItemName)
+                @Html.TextBoxFor(m => m.ItemName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ItemName)
+            </div>
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.CategoryId)
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Category, "Id", "CategoryName"), "Select Category", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CategoryId)
+            </div>
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.ItemUnit)
+                @Html.TextBoxFor(m => m.ItemUnit, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ItemUnit)
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.StockLevel)
+                @Html.TextBoxFor(m => m.StockLevel, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.StockLevel)
+            </div>
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.UnitPrice)
+                @Html.TextBoxFor(m => m.UnitPrice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UnitPrice)
+            </div>
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.ShelfLocation)
+                @Html.TextBoxFor(m => m.ShelfLocation, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShelfLocation)
+            </div>
+
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(m => m.MinimumLevel)
+                @Html.TextBoxFor(m => m.MinimumLevel, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MinimumLevel)
+            </div>
+
+        </div>
+
+        @Html.AntiForgeryToken()
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" type="button" data-dismiss="modal">Cancel</button>
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </div>
+}
+
+
+
+
