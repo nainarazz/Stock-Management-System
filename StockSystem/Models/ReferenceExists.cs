@@ -15,10 +15,10 @@ namespace StockSystem.Models
             var product = (Product)validationContext.ObjectInstance;
             
             using(ApplicationDbContext _context = new ApplicationDbContext())
-            {
+            {                
                 return _context.Product.Any(p => p.ReferenceId == product.ReferenceId)
-                   ? new ValidationResult("This reference ID already exists.")
-                   : ValidationResult.Success;                             
+                  ? new ValidationResult("This reference ID already exists.")
+                  : ValidationResult.Success;                             
                 
             }
 

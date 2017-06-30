@@ -129,7 +129,7 @@ namespace StockSystem.Controllers
             _context.Product.Remove(productsInDb);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "AdminDashboard");
+            return RedirectToAction("Index", "Product");
             
         }
 

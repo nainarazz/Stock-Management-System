@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using StockSystem.Models;
 using StockSystem.ViewModels;
+using System.Globalization;
 
 namespace StockSystem.Controllers
 {
@@ -22,16 +23,7 @@ namespace StockSystem.Controllers
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
-        }
-
-        public ActionResult CheckCategoryName()
-        {
-            var categoryName = Request.Params["CategoryName"];
-            var categoryInDb = _context.Category.Any(c => c.CategoryName == categoryName);
-
-            return Json(!categoryInDb, JsonRequestBehavior.AllowGet);
-
-        } 
+        }                
 
         // GET: Category
         [Authorize]
@@ -43,8 +35,8 @@ namespace StockSystem.Controllers
         public ActionResult New()
         {
             var viewModel = new AddCategoryViewModel();
-            
-            return PartialView("_Add",viewModel);
+
+            return PartialView("_Add", viewModel);
         }
         
         [HttpPost]
@@ -53,9 +45,10 @@ namespace StockSystem.Controllers
         {            
             if (!ModelState.IsValid)
             {
-                return PartialView("_Add", category);
+                var viewModel = new AddCategoryViewModel(category);
+                return PartialView("_Add", viewModel);
             }
-
+            
             category.CategoryName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category.CategoryName.ToLower());
 
             _context.Category.Add(category);
@@ -68,6 +61,7 @@ namespace StockSystem.Controllers
         public ActionResult Edit(int id)
         {
             var category = _context.Category.SingleOrDefault(c => c.Id == id);
+            AddCategoryViewModel.tempCategoryName = category.CategoryName;
 
             if (category == null)
                 return HttpNotFound();
@@ -80,16 +74,20 @@ namespace StockSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category category)
         {
+            var categoryNameExistsInDb = _context.Category.Any(c => c.CategoryName == category.CategoryName);
+
+            if (AddCategoryViewModel.tempCategoryName != category.CategoryName && categoryNameExistsInDb)
+                ModelState.AddModelError("CategoryName", "Category name already exists.");
 
             if (!ModelState.IsValid)
             {                
                 return PartialView("_Edit", category);
             }
-
+           
             var categoryInDb = _context.Category.Single(c => c.Id == category.Id);
 
-            categoryInDb.CategoryName = category.CategoryName;
-            categoryInDb.CategoryDescription = category.CategoryDescription;
+            categoryInDb.CategoryName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category.CategoryName.ToLower());
+            categoryInDb.CategoryDescription = category.CategoryDescription; 
 
             _context.SaveChanges();
 

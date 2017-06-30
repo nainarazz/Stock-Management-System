@@ -5,15 +5,12 @@ $(function () {
     $.ajaxSetup({ cache: false });
 
     $(document).on("click", "a[data-modal]", function (e) {
-        // hide dropdown if any (this is used wehen invoking modal from link in bootstrap dropdown )
-        //$(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
 
         $('#myModalContent').load(this.href, function () {
             
             $.validator.unobtrusive.parse($('form'));
 
             $('#myModal').modal({
-                /*backdrop: 'static',*/
                 keyboard: true
             }, 'show');
             bindForm(this);
