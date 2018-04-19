@@ -134,7 +134,7 @@ namespace StockSystem.Controllers
         }
 
         //code adapted from a post by Asma Khalid
-        //http://www.c-sharpcorner.com/article/Asp-Net-mvc5-datatables-plugin-server-side-integration/        
+        //link http://www.c-sharpcorner.com/article/Asp-Net-mvc5-datatables-plugin-server-side-integration/        
         public ActionResult GetProducts()
         {
             JsonResult result = new JsonResult();
