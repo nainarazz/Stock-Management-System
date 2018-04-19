@@ -26,7 +26,7 @@ namespace StockSystem.Controllers
         }
 
         
-        // GET: Product
+        // GET: Products
         [Authorize]
         public ActionResult Index()
         {            
